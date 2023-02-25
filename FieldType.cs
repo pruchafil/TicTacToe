@@ -9,8 +9,8 @@ public static class Fields
 
     public readonly static Dictionary<FieldType, char> dict = new Dictionary<FieldType, char>()
     {
-        { FieldType.X, 'X' },
-        { FieldType.O, 'O' },
+        { FieldType.X,    'X' },
+        { FieldType.O,    'O' },
         { FieldType.NULL, '-' }
     };
 }

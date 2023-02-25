@@ -54,28 +54,17 @@ public class Game
             Console.Write("{0,3} |", y + 1);
             for (int x = 0; x < Config.Instance.FieldSize; x++)
             {
-                switch (_field[y, x])
-                {
-                    default:
-                        Console.Write(" - ");
-                        break;
+                if (_field[y, x] == Fields.FieldType.X)
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                else if (_field[y, x] == Fields.FieldType.O)
+                    Console.ForegroundColor = ConsoleColor.Red;
 
-                    case Fields.FieldType.X:
-                        Console.ForegroundColor = ConsoleColor.Blue;
-                        Console.Write(" X ");
-                        break;
-
-                    case Fields.FieldType.O:
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.Write(" O ");
-                        break;
-                }
+                Console.Write(" {0} |", Fields.dict[_field[y, x]]);
                 Console.ForegroundColor = ConsoleColor.White;
-                Console.Write('|');
             }
-
-            Console.WriteLine();
         }
+
+        Console.WriteLine();
     }
 
     internal bool IsFull()

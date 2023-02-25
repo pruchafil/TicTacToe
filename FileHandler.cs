@@ -25,20 +25,7 @@ public static class FileHandler
         for (int y = 0; y < Config.Instance.FieldSize; y++)
         {
             for (int x = 0; x < Config.Instance.FieldSize; x++)
-                switch (gameInfo[y, x])
-                {
-                    case Fields.FieldType.NULL:
-                        sw.Write("- ");
-                        break;
-
-                    case Fields.FieldType.X:
-                        sw.Write("X ");
-                        break;
-
-                    case Fields.FieldType.O:
-                        sw.Write("O ");
-                        break;
-                }
+                Console.Write("{0} ", Fields.dict[gameInfo[y, x]]);
 
             sw.WriteLine();
         }
