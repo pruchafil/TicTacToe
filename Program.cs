@@ -34,7 +34,7 @@ void PlayGame()
     // empty field
     for (int y = 0; y < Config.Instance.FieldSize; y++)
         for (int x = 0; x < Config.Instance.FieldSize; x++)
-            gameInfo[y, x] = Fields.NULL;
+            gameInfo[y, x] = Fields.FieldType.NULL;
 
     bool firstPlayer = true;
     bool gameActive = true;
@@ -72,20 +72,20 @@ void PlayGame()
                 (
                     y < 0 || y >= Config.Instance.FieldSize ||
                     x < 0 || x >= Config.Instance.FieldSize ||
-                    gameInfo[y, x] != Fields.NULL
+                    gameInfo[y, x] != Fields.FieldType.NULL
                 )
                 {
                     Console.WriteLine(invalidInput);
                     continue;
                 }
 
-                gameInfo[y, x] = arg == 1 ? Fields.X : Fields.O;
+                gameInfo[y, x] = arg == 1 ? Fields.FieldType.X : Fields.FieldType.O;
             }
 
             incorrect = false;
         } while (incorrect);
 
-        Fields f = arg == 1 ? Fields.X : Fields.O;
+        Fields.FieldType f = arg == 1 ? Fields.FieldType.X : Fields.FieldType.O;
 
         if (gameInfo.CheckWin(f))
         {

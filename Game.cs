@@ -4,24 +4,24 @@ namespace TicTacToe;
 
 public class Game
 {
-    private readonly Fields[,] _field = new Fields[Config.Instance.FieldSize, Config.Instance.FieldSize];
+    private readonly Fields.FieldType[,] _field = new Fields.FieldType[Config.Instance.FieldSize, Config.Instance.FieldSize];
 
-    public Fields this[int y, int x]
+    public Fields.FieldType this[int y, int x]
     {
         get
         {
             if (y >= Config.Instance.FieldSize || y < 0)
-                throw new System.IndexOutOfRangeException($"min {nameof(y)} is {0}, max is {Config.Instance.FieldSize - 1}");
+                throw new IndexOutOfRangeException($"min {nameof(y)} is {0}, max is {Config.Instance.FieldSize - 1}");
             if (x >= Config.Instance.FieldSize || x < 0)
-                throw new System.IndexOutOfRangeException($"min {nameof(x)} is {0}, max is {Config.Instance.FieldSize - 1}");
+                throw new IndexOutOfRangeException($"min {nameof(x)} is {0}, max is {Config.Instance.FieldSize - 1}");
             return _field[y, x];
         }
         set
         {
             if (y >= Config.Instance.FieldSize || y < 0)
-                throw new System.IndexOutOfRangeException($"min {nameof(y)} is {0}, max is {Config.Instance.FieldSize - 1}");
+                throw new IndexOutOfRangeException($"min {nameof(y)} is {0}, max is {Config.Instance.FieldSize - 1}");
             if (x >= Config.Instance.FieldSize || x < 0)
-                throw new System.IndexOutOfRangeException($"min {nameof(x)} is {0}, max is {Config.Instance.FieldSize - 1}");
+                throw new IndexOutOfRangeException($"min {nameof(x)} is {0}, max is {Config.Instance.FieldSize - 1}");
 
             _field[y, x] = value;
         }
@@ -60,12 +60,12 @@ public class Game
                         Console.Write(" - ");
                         break;
 
-                    case Fields.X:
+                    case Fields.FieldType.X:
                         Console.ForegroundColor = ConsoleColor.Blue;
                         Console.Write(" X ");
                         break;
 
-                    case Fields.O:
+                    case Fields.FieldType.O:
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.Write(" O ");
                         break;
@@ -80,14 +80,14 @@ public class Game
 
     internal bool IsFull()
     {
-        foreach (Fields item in _field)
-            if (item == Fields.NULL)
+        foreach (Fields.FieldType item in _field)
+            if (item == Fields.FieldType.NULL)
                 return false;
 
         return true;
     }
 
-    internal bool CheckWin(Fields f)
+    internal bool CheckWin(Fields.FieldType f)
     {
         for (int y = 0, index = 0; y < Config.Instance.FieldSize; y++, index = 0)
         {

@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Text.Json;
 using TicTacToe;
 
@@ -6,36 +7,35 @@ namespace SaveSystem;
 
 public static class FileHandler
 {
+    const string games = "games.ttc";
+    const string config = "config.json";
+
     public static void OutputFileToConsole()
     {
-        using System.IO.StreamReader sr = new(
-            new System.IO.FileStream("games.ttc", System.IO.FileMode.OpenOrCreate)
-        );
+        using StreamReader sr = new(new FileStream(games, FileMode.OpenOrCreate));
 
         while (!sr.EndOfStream)
-            System.Console.WriteLine(sr.ReadLine());
+            Console.WriteLine(sr.ReadLine());
     }
 
-    public static void WriteToFile(TicTacToe.Game gameInfo)
+    public static void WriteToFile(Game gameInfo)
     {
-        using System.IO.StreamWriter sw = new(
-            new System.IO.FileStream("games.ttc", System.IO.FileMode.Append)
-        );
+        using StreamWriter sw = new(new FileStream(games, FileMode.Append));
 
-        for (int y = 0; y < 3; y++)
+        for (int y = 0; y < Config.Instance.FieldSize; y++)
         {
-            for (int x = 0; x < 3; x++)
-                switch (gameInfo[x, y])
+            for (int x = 0; x < Config.Instance.FieldSize; x++)
+                switch (gameInfo[y, x])
                 {
-                    case TicTacToe.Fields.NULL:
+                    case Fields.FieldType.NULL:
                         sw.Write("- ");
                         break;
 
-                    case TicTacToe.Fields.X:
+                    case Fields.FieldType.X:
                         sw.Write("X ");
                         break;
 
-                    case TicTacToe.Fields.O:
+                    case Fields.FieldType.O:
                         sw.Write("O ");
                         break;
                 }
@@ -48,6 +48,6 @@ public static class FileHandler
 
     public static Config LoadConfig()
     {
-        return JsonSerializer.Deserialize<Config>(File.ReadAllText("config.json"));
+        return JsonSerializer.Deserialize<Config>(File.ReadAllText(config));
     }
 }
